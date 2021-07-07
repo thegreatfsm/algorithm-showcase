@@ -1,0 +1,30 @@
+.GridElement {
+    min-width: 10px;
+    min-height: 10px;
+    height: .9vw;
+    width: .9vw;
+    max-width: 20px;
+    max-height: 20px;
+    border: .5px solid hsl(230.85, 48%, 70%);;
+    box-sizing: border-box;
+}
+
+.Start{
+    background-color: hsl(230.85, 48%, 48%);
+}
+
+.Obstacle{
+    background-color: hsl(0, 0%, 50%);
+}
+
+.Unvisited{
+    background-color: hsl(0, 0%, 75%);
+}
+
+.Visited{
+    background-color: hsl(230.85, 48%, 75%);
+}
+
+.Goal{
+    background-color: darkolivegreen;
+}

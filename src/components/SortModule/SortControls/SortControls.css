@@ -1,0 +1,15 @@
+.SortControlsRow{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.SortControlsUnit{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin: 3%;
+}
+.ValueRange{
+    width: 80%;
+    margin: auto;
+}
