@@ -5,7 +5,7 @@ import { Button, Slider, Typography, TextField, FormControl, Select, InputLabel,
 import { availableSorts } from '../../../helper/sortingHelpers/sortIndex';
 import './SortControls.css';
 
-const SortControls = () => {
+const SortControls: React.FC = () => {
     const dispatch = useAppDispatch();
     const listElements = useAppSelector((state) => state.listElements.listElements);
     const [rangeValues, setRangeValues] = React.useState([0,100]);

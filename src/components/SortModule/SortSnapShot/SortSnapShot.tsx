@@ -19,7 +19,7 @@ const sortAnimation = async (increment: () => void, total: number, currentSnapsh
     }
 }
 
-const SortSnapShot = () => {
+const SortSnapShot:React.FC = () => {
     const dispatch = useAppDispatch();
     const currentSnapshot = useAppSelector((state) => state.listElements.snapshot) + 1;
     const total = useAppSelector((state) => state.listElements.listElementsSnapshots.length);

@@ -14,7 +14,7 @@ const spring = {
     stiffness: 200
 };
 
-const SortElement = (props: IProps) => {
+const SortElement: React.FC<IProps> = (props) => {
     return (
         <motion.li className='SortElementUnit' layout
         transition={spring} style={{'width': props.width}} >

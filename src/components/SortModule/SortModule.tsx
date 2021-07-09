@@ -4,7 +4,7 @@ import SortArea from './SortArea/SortArea';
 import SortSnapShot from './SortSnapShot/SortSnapShot'
 import SortControls from './SortControls/SortControls';
 
-const SortModule = () => {
+const SortModule: React.FC = () => {
     const total = useAppSelector((state) => state.listElements.listElementsSnapshots.length);
     return(
         <React.Fragment>
