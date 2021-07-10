@@ -7,6 +7,7 @@ export interface IProps{
     /** Maps to GridElementType */
     value: (-2|-1|0|1|2);
     onMouseMove: (e: MouseEvent<HTMLDivElement>) => void;
+    onClick: () => void;
 }
 
 /*const classes: Map<number, string> = new Map([
@@ -22,12 +23,14 @@ const colors: Map<number, string> = new Map([
     [-1, '#808080'], //Obstacle
     [0, '#bfbfbf'], //Unvisited
     [1, '#a1aade'], //Visited
-    [2, 'darkolivegreen'], //Goal
+    [2, '#128230'], //Goal
 ]); 
 
 
 const GridElement:React.FC<IProps>  = (props) => {
-    return(<motion.div className='GridElement' onMouseMove={props.onMouseMove} initial={{ backgroundColor: colors.get(props.value)}} animate={{backgroundColor: colors.get(props.value)}} ></motion.div>);
+    return(
+    <motion.div className='GridElement' onClick={props.onClick} onMouseMove={props.onMouseMove} initial={{ backgroundColor: colors.get(props.value)}} animate={{backgroundColor: colors.get(props.value)}} ></motion.div>
+    );
 }
 
 export default GridElement;

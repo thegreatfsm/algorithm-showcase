@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BrushTypes } from '../../helper/pathfindingHelpers/pathfindingBrushes/brushFactory';
+import { OnClickTypes } from '../../helper/pathfindingHelpers/pathfindingOnClick/onClickFactory';
 
 
 interface PathfindingState {
     grid: number[][];
     startCoordinates: [number, number];
     goalCoordinates: [number, number];
-    activeBrush: string;
+    activeBrush: BrushTypes;
     availableBrushes: BrushTypes[];
+    activeOnClick: OnClickTypes;
+
 } 
 
 const generateGrid = (startCoordinates: [number, number], goalCoordinates:[number, number]) => {
@@ -28,8 +31,9 @@ const initialState: PathfindingState = {
     grid: generateGrid(start, goal),
     startCoordinates: start,
     goalCoordinates: goal,
-    activeBrush: 'Obstacle Brush',
+    activeBrush: 'Inactive Brush',
     availableBrushes: availableBrushes,
+    activeOnClick: 'Inactive Onclick'
 }
 
 const copyGrid = (grid: number[][]) => {
@@ -64,11 +68,37 @@ export const pathfindingSlice = createSlice({
         },
         setActiveBrush: (state, action: PayloadAction<BrushTypes>) => {
             state.activeBrush = action.payload;
+        },
+        setStartOnClick: (state) => {
+            state.activeBrush = 'Inactive Brush';
+            state.activeOnClick = 'Start Onclick';
+        },
+        setGoalOnClick: (state) => {
+            state.activeBrush = 'Inactive Brush';
+            state.activeOnClick = 'Goal Onclick';
+        },
+        setStart: (state, action: PayloadAction<[number, number]>) => {
+            let newGrid = copyGrid(state.grid);
+            newGrid[state.startCoordinates[0]][state.startCoordinates[1]] = 0;
+            newGrid[action.payload[0]][action.payload[1]] = -2;
+            state.activeBrush = 'Inactive Brush';
+            state.activeOnClick = 'Inactive Onclick';
+            state.startCoordinates = action.payload;
+            state.grid = newGrid;
+        },
+        setGoal: (state, action: PayloadAction<[number, number]>) => {
+            let newGrid = copyGrid(state.grid);
+            newGrid[state.goalCoordinates[0]][state.goalCoordinates[1]] = 0;
+            newGrid[action.payload[0]][action.payload[1]] = 2;
+            state.activeBrush = 'Inactive Brush';
+            state.activeOnClick = 'Inactive Onclick';
+            state.goalCoordinates = action.payload;
+            state.grid = newGrid;
         }
     },
 });
 
 
-export const { update, updateCoordinates, clearVisited, setActiveBrush } = pathfindingSlice.actions;
+export const { update, updateCoordinates, clearVisited, setActiveBrush, setStartOnClick, setGoalOnClick, setStart, setGoal } = pathfindingSlice.actions;
 
 export default pathfindingSlice.reducer;
