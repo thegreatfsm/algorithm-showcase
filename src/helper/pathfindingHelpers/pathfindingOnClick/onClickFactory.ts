@@ -5,7 +5,6 @@ import { store } from "../../../store/store";
 
 export const onClickFactory = (updateFunc: (pos: [number, number]) => void, pos: [number, number]) => {
         return () => {
-            console.log(pos);
             updateFunc(pos);
         }
 }

@@ -10,7 +10,7 @@ interface PathfindingState {
     activeBrush: BrushTypes;
     availableBrushes: BrushTypes[];
     activeOnClick: OnClickTypes;
-
+    disabledControls: boolean;
 } 
 
 const generateGrid = (startCoordinates: [number, number], goalCoordinates:[number, number]) => {
@@ -23,8 +23,8 @@ const generateGrid = (startCoordinates: [number, number], goalCoordinates:[numbe
     return grid;
 }
 
-const start: [number, number] = [15,15];
-const goal: [number, number] = [7,7];
+const start: [number, number] = [10,7];
+const goal: [number, number] = [10,26];
 const availableBrushes: BrushTypes[] = ['Obstacle Brush', 'Erase Brush', 'Inactive Brush'];
 
 const initialState: PathfindingState = {
@@ -33,7 +33,8 @@ const initialState: PathfindingState = {
     goalCoordinates: goal,
     activeBrush: 'Inactive Brush',
     availableBrushes: availableBrushes,
-    activeOnClick: 'Inactive Onclick'
+    activeOnClick: 'Inactive Onclick',
+    disabledControls: false,
 }
 
 const copyGrid = (grid: number[][]) => {
@@ -51,6 +52,7 @@ export const pathfindingSlice = createSlice({
         update: (state, action: PayloadAction<number[][]>) => {
             state.grid = copyGrid(action.payload);
         },
+        setDefault: state => initialState,
         updateCoordinates: (state, action: PayloadAction<number[]>) => {
             const coords = action.payload;
             let newRow = [...state.grid[coords[0]]];
@@ -94,11 +96,19 @@ export const pathfindingSlice = createSlice({
             state.activeOnClick = 'Inactive Onclick';
             state.goalCoordinates = action.payload;
             state.grid = newGrid;
+        },
+        disableControls: (state) => {
+            state.activeBrush = 'Inactive Brush';
+            state.activeOnClick = 'Inactive Onclick';
+            state.disabledControls = true;
+        },
+        enableControls: (state) => {
+            state.disabledControls = false;
         }
     },
 });
 
 
-export const { update, updateCoordinates, clearVisited, setActiveBrush, setStartOnClick, setGoalOnClick, setStart, setGoal } = pathfindingSlice.actions;
+export const { update, setDefault, updateCoordinates, clearVisited, setActiveBrush, setStartOnClick, setGoalOnClick, setStart, setGoal, disableControls, enableControls } = pathfindingSlice.actions;
 
 export default pathfindingSlice.reducer;
